@@ -104,4 +104,8 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  
+  // proc_list_lock must be held when using these:
+  struct proc *prev; 		   // Process that is in the previous position of the proc list
+  struct proc *next;           // Process that is in the next position of the proc list
 };

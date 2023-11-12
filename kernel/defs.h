@@ -64,6 +64,38 @@ void*           kalloc(void);
 void            kfree(void *);
 void            kinit(void);
 
+// list.c
+struct list {
+struct list *next;
+struct list *prev;
+};
+void lst_init(struct list*);
+void lst_remove(struct list*);
+void lst_push(struct list*, void *);
+void *lst_pop(struct list*);
+void lst_print(struct list*);
+int lst_empty(struct list*);
+
+// buddy.c
+int bit_isset(char*, int);
+void bit_set(char*, int);
+void bit_clear(char*, int);
+void bd_print_vector(char*, int);
+void bd_print(void);
+int firstk(uint64);
+int blk_index(int, char*);
+void *addr(int, int);
+void *bd_malloc(uint64);
+int size(char*);
+void bd_free(void*);
+int blk_index_next(int, char*);
+void bd_mark(void*, void*);
+int bd_initfree_pair(int, int);
+int bd_initfree(void*, void*);
+int bd_mark_data_structures(char*);
+int bd_mark_unavailable(void*, void*);
+void bd_init(void*, void*);
+
 // log.c
 void            initlog(int, struct superblock*);
 void            log_write(struct buf*);
@@ -86,7 +118,7 @@ int             cpuid(void);
 void            exit(int);
 int             fork(void);
 int             growproc(int);
-void            proc_mapstacks(pagetable_t);
+//void            proc_mapstacks(pagetable_t);
 pagetable_t     proc_pagetable(struct proc *);
 void            proc_freepagetable(pagetable_t, uint64);
 int             kill(int);
@@ -102,10 +134,13 @@ void            sleep(void*, struct spinlock*);
 void            userinit(void);
 int             wait(uint64);
 void            wakeup(void*);
+void            wakeup_without_lock(void*);
 void            yield(void);
 int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
+int             dump(void);
+int             dump2(int, int, uint64);
 
 // swtch.S
 void            swtch(struct context*, struct context*);
